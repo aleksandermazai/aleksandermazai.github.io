@@ -1,10 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander Mazai | React Native Developer</title>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --primary-hover: #0052a3;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --bg-main: #f7fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 40px 20px;
+        }
+
+        #resume-area {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Шапка с контактами и фото */
+        header {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+
+        /* Круглое фото без искажений лица */
+        .header-avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 25%;
+            border: 3px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contacts {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .contacts a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contacts a:hover {
+            color: var(--primary);
+        }
+
+        section {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a202c;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #4a5568;
+            text-align: justify;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-category {
+            font-size: 13px;
+        }
+
+        .skill-category strong {
+            color: #1a202c;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .project {
+            margin-bottom: 20px;
+        }
+
+        .project:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .stack {
+            font-size: 12px;
+            background: #eeb20015;
+            color: #b37d00;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            font-size: 13.5px;
+            color: #4a5568;
+            margin-bottom: 5px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            color: #1a202c;
+            font-size: 14px;
+        }
+
+        .edu-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .date {
+            color: var(--primary);
+        }
+
+        .action-zone {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Стилизация ссылки под красивую кнопку */
+        .btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 102, 204, 0.2);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0, 102, 204, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column-reverse; text-align: center; padding: 20px; }
+            section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="resume-area">
+
+    <!-- CONTACTS -->
+    <header>
+        <div class="header-text">
+            <h1>Alexander Mazai</h1>
+            <div class="subtitle">React Native Developer</div>
+            <div class="contacts">
+                <div>📍 Minsk (Open to remote)</div>
+                <div>📱 Telegram: <a href="https://t.me/wnghmu" target="_blank">@wnghmu</a></div>
+                <div>🌐 GitHub: <a href="https://github.com/aleksandermazai" target="_blank">github.com/aleksandermazai</a></div>
+                <div>✉️ Email: <a href="mailto:mazday747@gmail.com">mazday747@gmail.com</a></div>
+            </div>
+        </div>
+        <!-- Ссылка на файл твоей фотографии -->
+        <img class="header-avatar" src="IMG_8407.PNG" alt="Alexander Mazai">
+    </header>
+
+    <!-- SUMMARY -->
+    <section>
+        <div class="section-title">Summary</div>
+        <p>Passionate React Native developer with a solid background of around 2 years, focused on creating cross-platform mobile applications. Thanks to my education at the Faculty of Mechanics and Mathematics of BSU, I possess strong analytical thinking and easily grasp complex business logic, algorithms, and architectural patterns. Experienced in the full cycle of pet project development: from navigation architecture design to integration with native device features and state management. Focused on writing clean, scalable code and optimizing user interface performance.</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section>
+        <div class="section-title">Skills</div>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <strong>Programming Languages</strong>
+                <span>JavaScript (ES6+), TypeScript</span>
+            </div>
+            <div class="skill-category">
+                <strong>Mobile Development</strong>
+                <span>React Native, Expo, React Native CLI, Metro Bundler</span>
+            </div>
+            <div class="skill-category">
+                <strong>Web Technologies</strong>
+                <span>React, HTML5, CSS3, Flexbox, UI Components</span>
+            </div>
+            <div class="skill-category">
+                <strong>State Management</strong>
+                <span>Jotai, Redux / Redux Toolkit, React Context</span>
+            </div>
+            <div class="skill-category">
+                <strong>Tools & Build Systems</strong>
+                <span>Git, GitHub, Vite, npm, yarn</span>
+            </div>
+            <div class="skill-category">
+                <strong>API Integration</strong>
+                <span>REST API, Axios, Push Notifications, AsyncStorage</span>
+            </div>
+            <div class="skill-category">
+                <strong>Languages</strong>
+                <span>Russian (Native), English (A2 — technical reading)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section>
+        <div class="section-title">Projects</div>
+        
+        <div class="project">
+            <div class="project-title">PurpleSchool App — Educational Platform Mobile Application</div>
+            <div class="stack">React Native, TypeScript, Expo, Jotai, React Navigation</div>
+            <ul>
+                <li>Developed a comprehensive mobile application for browsing and managing courses.</li>
+                <li>Implemented user registration and authentication systems with data validation.</li>
+                <li>Created a course catalog with advanced filtering, dynamic search, and smooth list scrolling.</li>
+                <li>Developed a personal student profile with the ability to upload and update avatars directly from the gallery or phone camera.</li>
+                <li>Designed a convenient navigation system using a custom side drawer (Drawer Navigation).</li>
+                <li>Integrated push notifications and configured click handling logic to redirect users to the target screen.</li>
+            </ul>
+        </div>
+
+        <div class="project" style="margin-top: 20px;">
+            <div class="project-title">React Posts — Dynamic Publication Management Platform</div>
+            <div class="stack">React, JavaScript, REST API, Axios, CSS Modules, React Hooks</div>
+            <ul>
+                <li>Developed a web-oriented application for managing posts and streaming data.</li>
+                <li>Integrated the application with an external REST API (JSONPlaceholder) using Axios for CRUD operations.</li>
+                <li>Implemented advanced filtering, multi-criteria sorting, and real-time "live" search.</li>
+                <li>Optimized UI performance via computation memoization (useMemo hook).</li>
+                <li>Created a responsive modular layout with custom modal windows and UI controls.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section>
+        <div class="section-title">Education</div>
+        <div class="edu-header">
+            <div>Belarusian State University (BSU)</div>
+            <div class="date">2024–2026</div>
+        </div>
+        <div class="edu-sub">Faculty of Mechanics and Mathematics | Specialty: Mechanics and Mathematical Modeling</div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section>
+        <div class="section-title">Certifications & Courses</div>
+        <div class="project-title">PurpleSchool - Full Professional Course: React Native and TypeScript</div>
+        <p style="margin-top: 5px; font-size: 13.5px; color: #4a5568;">Gained deep knowledge in mobile application architecture, data flow management, typing, and iOS/Android native modules.</p>
+    </section>
+
+</div>
+
 <div class="action-zone">
-    <!-- Твоя ссылка, стилизованная под кнопку, для скачивания готового файла -->
-    <a href="Alexander Mazai _ Resume.pdf" download="My_Resume.pdf" class="btn" style="text-decoration: none; display: inline-block;">
+    <!-- Прямая ссылка на скачивание твоего готового PDF -->
+    <a href="Alexander Mazai _ Resume.pdf" download="Alexander_Mazai_Resume.pdf" class="btn">
         Download PDF
     </a>
 </div>
 
-<!-- Старый скрипт html2pdf больше не нужен, его можно удалить -->
 </body>
 </html>
